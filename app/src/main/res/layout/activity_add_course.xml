@@ -181,22 +181,7 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
     </ScrollView>
-
 
 </LinearLayout>

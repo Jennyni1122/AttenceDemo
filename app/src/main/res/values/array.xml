@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="coursetype">
+        <item>15001|C语言</item>
+        <item>15002|数电</item>
+        <item>15003|模电</item>
+        <item>15004|电路分析</item>
+        <item>15005|信号与系统</item>
+        <item>15006|通信原理</item>
+        <item>15007|大学英语</item>
+    </string-array>
+</resources>

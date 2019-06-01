@@ -1,9 +1,5 @@
 package com.jennyni.attencedemo.db;
 
-import android.telephony.SignalStrength;
-import android.widget.ImageView;
-import android.widget.ThemedSpinnerAdapter;
-
 /**
  * 学生信息表
  * Created by Jenny on 2019/5/31.
@@ -15,13 +11,13 @@ public class Tb_student {
      * name      姓名
      * mac       蓝牙地址
      * classNo   课程编号
-     * major     专业
+     * major     专业(班级)
      * academy   学院
      * phone     电话
      * assemail  辅导员邮箱
      */
 
-    private String courcode;
+    private int courcode;
     private String name;
     private String mac;
     private String classNo;
@@ -30,13 +26,12 @@ public class Tb_student {
     private String phone;
     private String assemail;
 
-    private double scoreset;
 
     public  Tb_student(){
         super();
     }
 
-    public  Tb_student(String courcode,String name,String mac,String classNo,String major,String academy,String phone,String assemail){
+    public Tb_student(int courcode,String name,String mac,String classNo,String major,String academy,String phone,String assemail){
         super();
         this.courcode = courcode;
         this.name = name;
@@ -49,11 +44,11 @@ public class Tb_student {
 
     }
 
-    public String getCourcode() {
+    public int getCourcode() {
         return courcode;
     }
 
-    public void setCourcode(String courcode) {
+    public void setCourcode(int courcode) {
         this.courcode = courcode;
     }
 
