@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jennyni.attencedemo">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.welcome.LoginActivity" />
+        <activity android:name=".activity.setting.SyssetActivity" />
+        <activity android:name=".activity.student.StudentInfoActivity" />
+        <activity android:name=".activity.course.CourseInfoActivity" />
+        <activity android:name=".activity.attence.AttencemanageActivity" />
+        <activity android:name=".activity.course.AddCourseActivity" />
+        <activity android:name=".activity.course.QueryCourseActivity" />
+        <activity android:name=".activity.welcome.RegisterActivity" />
+        <activity android:name=".activity.welcome.FindPswActivity" />
+        <activity android:name=".activity.setting.ModifyPswActivity" />
+        <activity android:name=".activity.setting.KouFenActivity" />
+        <activity android:name=".activity.attence.DianMingActivity" />
+        <activity android:name=".activity.attence.QueryAttenceActivity" />
+        <activity android:name=".activity.attence.SMSActivity" />
+        <activity android:name=".activity.attence.EmailActivity" />
+        <activity android:name=".activity.attence.ExcelActivity" />
+        <activity android:name=".activity.student.AddStudentActivity" />
+        <activity android:name=".activity.student.ImportStudentActivity" />
+        <activity android:name=".activity.student.StudentNameActivity"></activity>
+    </application>
+
+</manifest>

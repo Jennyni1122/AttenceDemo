@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0ec9f7</color>
+    <color name="colorPrimaryDark">#0ec9f7</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="divider_line_color">#ebebeb</color>
+    <color name="hint_text_color">#a3a3a3</color>
+    <color name="rdTextColorPress">#0ec9f7</color>
+    <color name="constellation_info_color">#7f8080</color>
+    <color name="btn_color">#d6d7d7</color>
+
+
+</resources>
