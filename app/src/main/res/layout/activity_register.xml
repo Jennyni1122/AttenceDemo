@@ -10,17 +10,11 @@
 
     <include layout="@layout/main_title_bar"/>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_launcher_foreground"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical">
         <EditText
             android:id="@+id/et_user_name"

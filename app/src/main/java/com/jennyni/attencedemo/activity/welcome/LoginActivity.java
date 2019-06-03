@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jennyni.attencedemo.activity.MainActivity;
 import com.jennyni.attencedemo.utils.MD5Utils;
 import com.jennyni.attencedemo.R;
 
@@ -41,6 +42,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_forget_psw= (TextView) findViewById(R.id.tv_forget_psw);
         btn_login= (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(this);
+        tv_quick_register.setOnClickListener(this);
+        tv_forget_psw.setOnClickListener(this);
+        iv_show_psw.setOnClickListener(this);
     }
 
 
@@ -94,7 +98,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent data=new Intent();
                     data.putExtra("isLogin", true);
                     setResult(RESULT_OK, data);
-                    LoginActivity.this.finish();
+                   // LoginActivity.this.finish();
+                    Intent login=new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(login);
                     return;
                 }else if((!TextUtils.isEmpty(spPsw)&&!md5Psw.equals(spPsw))){
                     Toast.makeText(LoginActivity.this, "输入的用户名和密码不一致",

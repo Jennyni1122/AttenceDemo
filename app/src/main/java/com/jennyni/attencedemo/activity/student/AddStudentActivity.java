@@ -44,7 +44,7 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
 
     private void initView() {
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
-        tv_main_title.setText("课程管理");
+        tv_main_title.setText("添加学生信息");
         tv_back = (TextView) findViewById(R.id.tv_back);
         tv_back.setVisibility(View.VISIBLE);
         rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
