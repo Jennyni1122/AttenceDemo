@@ -37,6 +37,11 @@
         <activity android:name=".activity.student.AddStudentActivity" />
         <activity android:name=".activity.student.ImportStudentActivity" />
         <activity android:name=".activity.student.StudentNameActivity"></activity>
+
+        <provider
+            android:name=".contentprovider.UnKnownProvider"
+            android:authorities="com.jennyni.attencedemo"
+            android:exported="false" />
     </application>
 
 </manifest>

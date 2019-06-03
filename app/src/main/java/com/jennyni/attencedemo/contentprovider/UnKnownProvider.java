@@ -1,4 +1,4 @@
-package com.jennyni.attencedemo.activity.contentprovider;
+package com.jennyni.attencedemo.contentprovider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
