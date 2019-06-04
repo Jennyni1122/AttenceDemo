@@ -1,31 +1,63 @@
 package com.jennyni.attencedemo.activity.course;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
+import com.jennyni.attencedemo.dao.CourseDAO;
+import com.jennyni.attencedemo.db.Tb_course;
 
-public class AddCourseActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.List;
+
+public class AddCourseActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String TB_COURSE_KEY = "Tb_course";
 
     private TextView tv_main_title, tv_back;
     private RelativeLayout rl_title_bar;
 
-    private EditText et_courcode,et_courname,et_courtime,et_courplace,et_bookteacher;
-    private Button btn_saveinfo,btn_clearinfo;
+    private EditText et_courcode, et_courname, et_courtime, et_courplace, et_bookteacher;
+    private Button btn_saveinfo, btn_clearinfo;
 
-    private String courCode,courName,courTime,courPlace,bookTeacher;
+    private String courCode, courName, courTime, courPlace, bookTeacher;
+    private Tb_course course;
+    private boolean isEdit; //判断是否是编辑课程
+
+    public static void startActivity(Context context, Tb_course course) {
+        Intent intent = new Intent(context, AddCourseActivity.class);
+        intent.putExtra(TB_COURSE_KEY, course);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
-
         initView();
+        initData();
+    }
+
+    private void initData() {
+        course = (Tb_course) getIntent().getSerializableExtra(TB_COURSE_KEY);
+        if (course != null) {
+            et_courcode.setText(course.getCourcode());
+            et_courname.setText(course.getCourname());
+            et_courtime.setText(course.getCourtime());
+            et_courplace.setText(course.getCourplace());
+            et_bookteacher.setText(course.getTeacher());
+            btn_clearinfo.setText("删除");
+            btn_saveinfo.setText("修改");
+        }
+        isEdit = course == null;
     }
 
     private void initView() {
@@ -48,20 +80,38 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
         et_courplace = (EditText) findViewById(R.id.et_courplace);
         et_bookteacher = (EditText) findViewById(R.id.et_bookteacher);
 
-        btn_saveinfo = (Button)findViewById(R.id.btn_saveinfo);
-        btn_clearinfo = (Button)findViewById(R.id.btn_clearinfo);
+        btn_saveinfo = (Button) findViewById(R.id.btn_saveinfo);
+        btn_clearinfo = (Button) findViewById(R.id.btn_clearinfo);
+        btn_saveinfo.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        CourseDAO courseDAO = new CourseDAO(getContentResolver());
+        switch (v.getId()) {
             case R.id.btn_saveinfo:
                 getEditString();        //获取控件上的字符串
 
+                Tb_course tb_course = new Tb_course(courCode, courName, courTime, courPlace, bookTeacher);
+                if (isEdit) {
+                    courseDAO.updateByCourCode(tb_course);
+                    Toast.makeText(this, "修改成功~", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    courseDAO.insert(tb_course);
+                    Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+                }
 
+//                List<Tb_course> list = courseDAO.queryAll();
+//                Log.e("onClick: ", list.size() + "");
                 break;
             case R.id.btn_clearinfo:
-                getEditClear();
+                if (!isEdit) {
+                    getEditClear();
+                } else {
+                    courseDAO.deleteByCourCode(course);
+                }
+
                 break;
         }
 

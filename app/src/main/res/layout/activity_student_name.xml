@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jennyni.attencedemo.activity.student.StudentNameActivity">
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/main_title_bar" />
+
+
+    <Spinner
+        android:id="@+id/sp_coursetype"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/coursetype" />
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/lv_student"
+        android:layout_height="match_parent">
+
+    </ListView>
+</LinearLayout>

@@ -32,20 +32,20 @@ public class ProviderContract {
     protected static final int RETURNCODE_TB_STUDENT = 0x15;
 
     public static final class CourseEntry implements BaseColumns {
-
+        protected static final String TABLE_NAME = PATH_TB_COURSE;
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(CourseEntry.TABLE_NAME).build();
 
-        protected static final String TABLE_NAME = PATH_TB_COURSE;
+
 
         /**
          * "create table tb_course(" +
-         "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
-         "courcode varchar(20)," +
-         "courname varchar(20)," +
-         "courtime varchar(50),"+
-         "courplace varchar(50)," +
-         "teacher varchar(10)" +
-         ")"
+         * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
+         * "courcode varchar(20)," +
+         * "courname varchar(20)," +
+         * "courtime varchar(50),"+
+         * "courplace varchar(50)," +
+         * "teacher varchar(10)" +
+         * ")"
          */
         public static final String COLUMN_COURCODE = "courcode";
         public static final String COLUMN_COURNAME = "courname";
@@ -55,17 +55,17 @@ public class ProviderContract {
     }
 
     public static final class RecordEntry implements BaseColumns {
-
+        protected static final String TABLE_NAME = PATH_TB_RECORD;
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(RecordEntry.TABLE_NAME).build();
 
-        protected static final String TABLE_NAME = PATH_TB_RECORD;
+
 
         /**
-         *   "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
-         "attNo varchar(50) ," +
-         "attResult varchar(50),"+
-         "arrData varchar(50)" +
-         ")"
+         * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
+         * "attNo varchar(50) ," +
+         * "attResult varchar(50),"+
+         * "arrData varchar(50)" +
+         * ")"
          */
         public static final String COLUMN_ATTNO = "attNo";
         public static final String COLUMN_ATTRESULT = "attResult";
@@ -73,35 +73,35 @@ public class ProviderContract {
     }
 
     public static final class ScoreEntry implements BaseColumns {
-
+        protected static final String TABLE_NAME = PATH_TB_SCORE;
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(ScoreEntry.TABLE_NAME).build();
 
-        protected static final String TABLE_NAME = PATH_TB_SCORE;
+
 
         /**
          * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
-         "scoreset int" +
-         "
+         * "scoreset int" +
+         * "
          */
         public static final String COLUMN_SCORESET = "scoreset";
     }
 
     public static final class StasEntry implements BaseColumns {
-
+        protected static final String TABLE_NAME = PATH_TB_STAS;
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(StasEntry.TABLE_NAME).build();
 
-        protected static final String TABLE_NAME = PATH_TB_STAS;
+
 
         /**
-         *  "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
-         "attNo varchar(50)," +
-         "stuNo varchar(20)," +
-         "courcode varchar(20),"+
-         "sumTm integer," +
-         "realTm integer," +
-         "absTm integer,"+
-         "latTm integer," +
-         "score decimal"
+         * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
+         * "attNo varchar(50)," +
+         * "stuNo varchar(20)," +
+         * "courcode varchar(20),"+
+         * "sumTm integer," +
+         * "realTm integer," +
+         * "absTm integer,"+
+         * "latTm integer," +
+         * "score decimal"
          */
         public static final String COLUMN_ATTNO = "attNo";
         public static final String COLUMN_STUNO = "stuNo";
@@ -112,13 +112,33 @@ public class ProviderContract {
         public static final String COLUMN_LATTM = "latTm";
     }
 
+    /**
+     * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY," +
+     * "courcode varchar(20)," +
+     * "name varchar(10)," +
+     * "mac varchar(10)," +
+     * "classNo varchar(20)," +
+     * "major varchar(20)," +
+     * "academy varchar(20)," +
+     * "phone varchar(20)," +
+     * "assemail varchar(20)" +
+     */
     public static final class StudentEntry implements BaseColumns {
 
+        protected static final String TABLE_NAME = PATH_TB_STUDENT;
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(StudentEntry.TABLE_NAME).build();
 
-        protected static final String TABLE_NAME = PATH_TB_STUDENT;
+        public static final String COLUMN_COURCODE = "courcode";
+        public static final String COLUMN_COURSECODE = "courseCode";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_MAC = "mac";
+        public static final String COLUMN_MAJOR = "major";
+        public static final String COLUMN_CLASSNO = "classNo";
+        public static final String COLUMN_ACADEMY = "academy";
+        public static final String COLUMN_PHONE = "phone";
+        public static final String COLUMN_ASSEMAIL = "assemail";
 
-//        public static final String COLUMN_NAME = "name";
+
     }
 
 

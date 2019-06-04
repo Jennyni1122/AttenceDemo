@@ -5,4 +5,7 @@ package com.jennyni.attencedemo.dao;
  */
 
 public class ScoreDAO {
+
+
+
 }

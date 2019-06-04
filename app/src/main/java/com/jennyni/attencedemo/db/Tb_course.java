@@ -1,11 +1,13 @@
 package com.jennyni.attencedemo.db;
 
+import java.io.Serializable;
+
 /**
  *课程信息表
  * Created by Jenny on 2019/5/31.
  */
 
-public class Tb_course {
+public class Tb_course implements Serializable {
 
     /**
      * courcode  课程编号

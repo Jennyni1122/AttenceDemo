@@ -1,11 +1,13 @@
 package com.jennyni.attencedemo.db;
 
+import java.io.Serializable;
+
 /**
  * 学生信息表
  * Created by Jenny on 2019/5/31.
  */
 
-public class Tb_student {
+public class Tb_student implements Serializable {
     /**
      * courcode  学号
      * name      姓名
@@ -15,9 +17,10 @@ public class Tb_student {
      * academy   学院
      * phone     电话
      * assemail  辅导员邮箱
+     * courseCode  课程
      */
 
-    private int courcode;
+    private String courcode;
     private String name;
     private String mac;
     private String classNo;
@@ -25,14 +28,23 @@ public class Tb_student {
     private String academy;
     private String phone;
     private String assemail;
+    private String courseCode;
 
 
-    public  Tb_student(){
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public Tb_student() {
         super();
     }
 
-    public Tb_student(int courcode,String name,String mac,String classNo,String major,String academy,String phone,String assemail){
-        super();
+    public Tb_student(String courcode, String name, String mac, String classNo, String major, String academy, String phone,
+                      String assemail,String courseCode) {
         this.courcode = courcode;
         this.name = name;
         this.mac = mac;
@@ -41,14 +53,16 @@ public class Tb_student {
         this.academy = academy;
         this.phone = phone;
         this.assemail = assemail;
+        this.courseCode = courseCode;
 
     }
 
-    public int getCourcode() {
+
+    public String getCourcode() {
         return courcode;
     }
 
-    public void setCourcode(int courcode) {
+    public void setCourcode(String courcode) {
         this.courcode = courcode;
     }
 

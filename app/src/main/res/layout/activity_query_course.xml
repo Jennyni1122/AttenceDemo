@@ -10,5 +10,13 @@
     <include layout="@layout/main_title_bar"/>
 
 
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/lv_course"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+
 
 </LinearLayout>
