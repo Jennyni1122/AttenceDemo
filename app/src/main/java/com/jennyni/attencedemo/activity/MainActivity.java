@@ -1,5 +1,6 @@
 package com.jennyni.attencedemo.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,9 @@ import com.jennyni.attencedemo.activity.course.CourseInfoActivity;
 import com.jennyni.attencedemo.activity.setting.SyssetActivity;
 import com.jennyni.attencedemo.activity.student.StudentInfoActivity;
 import com.jennyni.attencedemo.adapter.pictureAdapter;
+import com.jennyni.attencedemo.permission.PermissionsActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends PermissionsActivity {
 
     private TextView tv_main_title;
     private RelativeLayout rl_title_bar;
@@ -62,6 +64,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public String[] getPermission() {
+        return new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        };
+    }
+
+    @Override
+    public void onPermissionRequestSuccess() {
+
+    }
+
+    @Override
+    public void onPermissionRequestFail() {
+        showMissingPermissionDialog("缺失权限！");
     }
 
     private void initView() {

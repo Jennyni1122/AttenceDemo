@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jennyni.attencedemo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_school"
@@ -9,15 +17,15 @@
         android:roundIcon="@mipmap/icon_school"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
-        <activity android:name=".activity.welcome.LoginActivity" >
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.welcome.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.welcome.LoginActivity">
         </activity>
         <activity android:name=".activity.setting.SyssetActivity" />
         <activity android:name=".activity.student.StudentInfoActivity" />
@@ -36,12 +44,14 @@
         <activity android:name=".activity.attence.ExcelActivity" />
         <activity android:name=".activity.student.AddStudentActivity" />
         <activity android:name=".activity.student.ImportStudentActivity" />
-        <activity android:name=".activity.student.StudentNameActivity"></activity>
+        <activity android:name=".activity.student.StudentNameActivity" />
 
         <provider
             android:name=".contentprovider.UnKnownProvider"
             android:authorities="com.jennyni.attencedemo"
             android:exported="false" />
+
+
     </application>
 
 </manifest>
