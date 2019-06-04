@@ -124,7 +124,7 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
 //                    studentDAO = new StudentDAO(AddStudentActivity.this);
                     if (!isEdit) {
                         //课程code暂时没弄
-                        tb_student = new Tb_student(1, stuName, stuMac, stuClass, stuNum, stuAcademy, stuPhone, teaEmail, "");
+                        tb_student = new Tb_student("11", stuName, stuMac, stuClass, stuNum, stuAcademy, stuPhone, teaEmail, "");
 //                    studentDAO.addStudentInfo(tb_student);
                         studentDAO.addStudentInfo(tb_student);
                         Toast.makeText(this, "添加成功~", Toast.LENGTH_SHORT).show();

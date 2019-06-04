@@ -154,7 +154,7 @@ public class StudentDAO {
      *
      * @param courcodes
      */
-    public void deteleStudentInfo(Integer... courcodes) {
+    public void deteleStudentInfo(String... courcodes) {
 //        if (courcodes.length > 0) {                                        //判断是否存在要删除的id
 //            StringBuffer sb = new StringBuffer();                   //创建StringBuffer对象
 //            for (int i = 0; i < courcodes.length; i++) {                    //遍历要删除的id集合
@@ -163,13 +163,9 @@ public class StudentDAO {
 //            sb.deleteCharAt(sb.length() - 1);                       //去掉最后一个“，”字符
 //            db.execSQL("delete from tb_student where courcode in (" + sb + ")", (Object[]) courcodes);
 //        }
-        if (courcodes.length > 0) {
-            String[] strings = new String[courcodes.length];
-            for (int i = 0; i < courcodes.length; i++) {
-                strings[i] = String.valueOf(courcodes[i]);
-            }
-            contentResolver.delete(ProviderContract.StudentEntry.CONTENT_URI, ProviderContract.StudentEntry.COLUMN_COURCODE + "=?", strings);
-        }
+
+        contentResolver.delete(ProviderContract.StudentEntry.CONTENT_URI, ProviderContract.StudentEntry.COLUMN_COURCODE + "=?", courcodes);
+
     }
 
     /**
