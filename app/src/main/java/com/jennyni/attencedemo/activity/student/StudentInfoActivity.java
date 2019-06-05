@@ -25,7 +25,7 @@ public class StudentInfoActivity extends AppCompatActivity {
 
     GridView gvInfo;            //创建GridView对象
 
-    String[] titles = new String[]{"添加学生信息","导入学生信息","学生信息名册"};//定义字符串数组，存储系统功能
+    String[] titles = new String[]{"添加学生信息","查询学生信息","学生信息名册"};//定义字符串数组，存储系统功能
     int[] images = new int[]{R.drawable.addstu,R.drawable.importinfo,R.drawable.stuname};
 
     @Override
@@ -45,7 +45,7 @@ public class StudentInfoActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(StudentInfoActivity.this,ImportStudentActivity.class);
+                        intent = new Intent(StudentInfoActivity.this,QueryStudentActivity.class);
                         startActivity(intent);
                         break;
                     case 2:

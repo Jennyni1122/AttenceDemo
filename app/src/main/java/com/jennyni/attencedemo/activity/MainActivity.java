@@ -67,6 +67,12 @@ public class MainActivity extends PermissionsActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        requestPermission();
+    }
+
+    @Override
     public String[] getPermission() {
         return new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
