@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
 import com.jennyni.attencedemo.activity.course.CourseInfoActivity;
+import com.jennyni.attencedemo.dao.CourseDAO;
 import com.jennyni.attencedemo.dao.StudentDAO;
+import com.jennyni.attencedemo.db.Tb_course;
 import com.jennyni.attencedemo.db.Tb_student;
 
 import java.util.List;
@@ -39,6 +42,7 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
     private StudentDAO studentDAO;
     private Tb_student tb_student;
     private boolean isEdit; //是否是编辑学生信息
+    private String courseCode;
 
 
     public static void startActivity(Context context, Tb_student student) {
@@ -79,14 +83,12 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
         tv_back.setVisibility(View.VISIBLE);
         rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
         rl_title_bar.setBackgroundColor(getResources().getColor(R.color.rdTextColorPress));
-
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         sp_coursetype = (Spinner) findViewById(R.id.sp_coursetype);
         et_stunum = (EditText) findViewById(R.id.et_stunum);
         et_stuname = (EditText) findViewById(R.id.et_stuname);
@@ -97,10 +99,26 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
         et_teaemail = (EditText) findViewById(R.id.et_teaemail);
         btn_saveinfo = (Button) findViewById(R.id.btn_saveinfo);
         btn_clearinfo = (Button) findViewById(R.id.btn_clearinfo);
+
+
+        CourseDAO courseDAO = new CourseDAO(getContentResolver());
+        final List<Tb_course> list = courseDAO.queryAll();
+        if (list.size() == 0) {
+            Toast.makeText(this, "请先添加课程~", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String[] arr = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            Tb_course tb_course = list.get(i);
+            arr[i] = String.format("%s | %s", tb_course.getCourcode(), tb_course.getCourname());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arr);
+        sp_coursetype.setAdapter(adapter);
+        courseCode = list.get(0).getCourcode();
         sp_coursetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                courseCode = list.get(position).getCourcode();
             }
 
             @Override
@@ -124,10 +142,15 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
 //                    studentDAO = new StudentDAO(AddStudentActivity.this);
                     if (!isEdit) {
                         //课程code暂时没弄
-                        tb_student = new Tb_student("11", stuName, stuMac, stuClass, stuNum, stuAcademy, stuPhone, teaEmail, "");
+                        tb_student = new Tb_student(stuNum, stuName, stuMac, stuClass, stuNum, stuAcademy, stuPhone, teaEmail, courseCode);
 //                    studentDAO.addStudentInfo(tb_student);
-                        studentDAO.addStudentInfo(tb_student);
-                        Toast.makeText(this, "添加成功~", Toast.LENGTH_SHORT).show();
+                        if (!studentDAO.isHasCourCode(courseCode)) {
+                            studentDAO.addStudentInfo(tb_student);
+                            Toast.makeText(this, "添加成功~", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "已经存在该学号~", Toast.LENGTH_SHORT).show();
+                        }
+
                     } else {
                         studentDAO.updateStudentInfo(tb_student);
                         Toast.makeText(this, "修改成功~", Toast.LENGTH_SHORT).show();

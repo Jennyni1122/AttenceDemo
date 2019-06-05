@@ -4,7 +4,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanCallback;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,18 +21,27 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
+import com.jennyni.attencedemo.adapter.RecordAdaper;
 import com.jennyni.attencedemo.adapter.StudentAdaper;
 import com.jennyni.attencedemo.adapter.apater.IAdapter;
 import com.jennyni.attencedemo.contentprovider.ProviderContract;
 import com.jennyni.attencedemo.dao.CourseDAO;
+import com.jennyni.attencedemo.dao.RecordDAO;
+import com.jennyni.attencedemo.dao.StasDAO;
 import com.jennyni.attencedemo.dao.StudentDAO;
 import com.jennyni.attencedemo.db.Tb_course;
+import com.jennyni.attencedemo.db.Tb_record;
+import com.jennyni.attencedemo.db.Tb_stas;
 import com.jennyni.attencedemo.db.Tb_student;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
-public class DianMingActivity extends AppCompatActivity {
+public class DianMingActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
 
 
     private ListView lv_student;
@@ -42,16 +54,21 @@ public class DianMingActivity extends AppCompatActivity {
     private List<Tb_student> currentCourseStudent;
     private List<String> macAddress = new ArrayList<>();
     private IAdapter<Tb_student> adapter;
-
+    private BluetoothReciver bluetoothReciver;
+    private int times = 1;
+    private List<Tb_record> uncheckList = new ArrayList<>();
+    private RecordDAO recordDAO;
+    private StasDAO stasDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dian_ming);
-
         initVIew();
-
+        registerBluetoothReciver();
         courseDAO = new CourseDAO(getContentResolver());
+        recordDAO = new RecordDAO(getContentResolver());
+        stasDAO = new StasDAO(getContentResolver());
         final List<Tb_course> list = courseDAO.queryAll();
         if (list.size() == 0) {
             Toast.makeText(this, "请先添加课程~", Toast.LENGTH_SHORT).show();
@@ -79,10 +96,21 @@ public class DianMingActivity extends AppCompatActivity {
 
     }
 
+    private void registerBluetoothReciver() {
+        bluetoothReciver = new BluetoothReciver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        registerReceiver(bluetoothReciver, filter);
+    }
+
+
     private void initVIew() {
         lv_student = findViewById(R.id.lv_student);
-        adapter = new StudentAdaper(this);
+        sp_coursetype = findViewById(R.id.sp_coursetype);
+        adapter = new RecordAdaper(this, uncheckList);
         lv_student.setAdapter((ListAdapter) adapter.getAdapter());
+        adapter.setOnChildViewClickListener(this);
     }
 
     void getData(List<Tb_course> list, int position) {
@@ -94,22 +122,14 @@ public class DianMingActivity extends AppCompatActivity {
         return studentDAO.querByCourse(courseCode);
     }
 
-    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
-        @Override
-        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-            String address = device.getAddress();
-            int containsAddress = isContainsAddress(address);
-            if (containsAddress != -1) {
-                macAddress.add(address);
-                currentCourseStudent.remove(containsAddress);
-            }
-        }
-    };
+//    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
+//        @Override
+//        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+//
+//        }
+//    };
 
     public int isContainsAddress(String address) {
-//        for (int i = 0; i < currentCourseStudent.size(); i++) {
-//            currentCourseStudent.get(i)
-//        }
         for (Tb_student student : currentCourseStudent) {
             if (student.getCourcode().equals(address)) {
                 return currentCourseStudent.indexOf(student);
@@ -124,25 +144,130 @@ public class DianMingActivity extends AppCompatActivity {
      * @param view
      */
     public void startScanBluetoothMac(View view) {
-        adapter.clearList();
+        if (mBluetoothAdapter != null && mBluetoothAdapter.isDiscovering()) {
+            Toast.makeText(DianMingActivity.this, "蓝牙正在工作~", Toast.LENGTH_SHORT).show();
+            return;
+        }
         currentCourseStudent = getCurrentCourseStudent(courseCode);
+        uncheckList.clear();
+        adapter.clearList();
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
-        mBluetoothAdapter.enable();
-        mBluetoothAdapter.startLeScan(scanCallback);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mBluetoothAdapter.stopLeScan(scanCallback);
-                Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
-                Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
-                adapter.addAll(currentCourseStudent);
-            }
+        if (!mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.enable();
+        } else {
+            mBluetoothAdapter.startDiscovery();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+//                mBluetoothAdapter.stopLeScan(scanCallback);
+                    if (currentCourseStudent.size() * 1.0f / (macAddress.size() + currentCourseStudent.size()) < 0.9f && times < 6) {
+                        mBluetoothAdapter.cancelDiscovery();
+                        mBluetoothAdapter.startDiscovery();
+                        times++;
+                    } else {
+                        times = 1;
+                        mBluetoothAdapter.cancelDiscovery();
+                        Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
+                        Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
+                        for (int i = 0; i < currentCourseStudent.size(); i++) {
+                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
+                            uncheckList.add(tb_record);
+                            recordDAO.insert(tb_record);
+                            upDateStas(currentCourseStudent.get(i));
+                        }
 
-        }, 25 * 1000);
+                        adapter.addAll(currentCourseStudent);
+                    }
+                    //完成后的操作
 
+                }
+
+            }, 12 * 1000); //先开启一次
+        }
 
     }
 
 
+    void upDateStas(Tb_student student) {
+        List<Tb_record> tb_records = recordDAO.queryByAttNo(Tb_record.getAttNo(courseCode, student.getCourcode()));
+        int[] nums = new int[3];
+        for (int i = 0; i < tb_records.size(); i++) {
+            if (tb_records.get(i).getAttResult().equals("已到")) {
+                nums[0]++;
+            } else if (tb_records.get(i).getAttResult().equals("旷课")) {
+                nums[1]++;
+            } else {
+                nums[2]++;
+            }
+        }
+
+        Tb_stas tb_stas = new Tb_stas(Tb_record.getAttNo(courseCode, student.getCourcode()), student.getCourcode(), courseCode, tb_records.size(), nums[0], nums[1], nums[2], 100);
+        stasDAO.insertOrUpdateStas(tb_stas);
+    }
+
+    public Tb_record getAttTb_Record(Tb_student student, String courseCode, String attResult) {
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        Tb_record tb_record = new Tb_record(String.valueOf(System.currentTimeMillis()) + (Math.random() * 9 + 1) * 1000,
+                Tb_record.getAttNo(courseCode, student.getCourcode()),
+                attResult, date
+
+        );
+        return tb_record;
+
+    }
+
+
+    @Override
+    public void setOnChildViewClickListener(View v, int position) {
+        Tb_student student = adapter.getList().get(position);
+        EditAttResultActivity.startActivity(this, uncheckList.get(position), courseCode, student);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == EditAttResultActivity.REQUESTCODE) {
+            Tb_record record = (Tb_record) data.getSerializableExtra(EditAttResultActivity.TB_RECORD_KEY);
+            for (int i = 0; i < uncheckList.size(); i++) {
+                Tb_record record1 = uncheckList.get(i);
+                if (record1.getId().equals(record.getId())) {
+                    uncheckList.set(i, record);
+                    adapter.notifyDataChanged();
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (bluetoothReciver != null) {
+            unregisterReceiver(bluetoothReciver);
+        }
+        super.onDestroy();
+
+    }
+
+    class BluetoothReciver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("onReceive: ", intent.getAction());
+            if (intent.getAction() == BluetoothDevice.ACTION_FOUND) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String address = device.getAddress();
+                int containsAddressIndex = isContainsAddress(address);
+                if (containsAddressIndex != -1) {
+                    macAddress.add(address);
+                    recordDAO.insert(getAttTb_Record(currentCourseStudent.get(containsAddressIndex), courseCode, "已到"));
+                    upDateStas(currentCourseStudent.get(containsAddressIndex));
+                    currentCourseStudent.remove(containsAddressIndex);
+                }
+            } else {
+                Log.e("onReceive: ", "接收到其他广播啦");
+            }
+        }
+    }
 }

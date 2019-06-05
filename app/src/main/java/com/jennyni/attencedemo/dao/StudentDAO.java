@@ -228,4 +228,16 @@ public class StudentDAO {
         }
         return list;
     }
+
+
+    /**
+     * 判断是否已经存在该学号
+     *
+     * @param courCode
+     * @return
+     */
+    public boolean isHasCourCode(String courCode) {
+        Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURCODE + "=?", new String[]{courCode + ""}, null);
+        return cursor.getCount() != 0;
+    }
 }

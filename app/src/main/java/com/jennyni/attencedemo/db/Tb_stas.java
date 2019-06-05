@@ -9,7 +9,7 @@ public class Tb_stas {
     /**
      * attNo   考勤序号
      * stuNo     学号
-     * courcode  课程编号
+     * coursecode  课程编号
      * sumTm     总次数
      * realTm    实到次数
      * absTm     旷课次数
@@ -19,7 +19,7 @@ public class Tb_stas {
 
     private String attNo;
     private String stuNo;
-    private String courcode;
+    private String coursecode;
     private int sumTm;
     private int realTm;
     private int absTm;
@@ -30,12 +30,12 @@ public class Tb_stas {
         super();
     }
 
-    public Tb_stas(String attNo,String stuNo,String courcode,int sumTm,int realTm,int absTm,int latTm,double score){
+    public Tb_stas(String attNo,String stuNo,String coursecode,int sumTm,int realTm,int absTm,int latTm,double score){
         super();
 
         this.attNo = attNo;
         this.stuNo = stuNo;
-        this.courcode = courcode;
+        this.coursecode = coursecode;
         this.sumTm = sumTm;
         this.realTm = realTm;
         this.absTm = absTm;
@@ -59,12 +59,12 @@ public class Tb_stas {
         this.stuNo = stuNo;
     }
 
-    public String getCourcode() {
-        return courcode;
+    public String getcoursecode() {
+        return coursecode;
     }
 
-    public void setCourcode(String courcode) {
-        this.courcode = courcode;
+    public void setcoursecode(String coursecode) {
+        this.coursecode = coursecode;
     }
 
     public int getSumTm() {

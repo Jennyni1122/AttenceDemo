@@ -95,13 +95,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_saveinfo"
+            android:id="@+id/btn_edit"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="15dp"
+            android:onClick="edit"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_light"
             android:text="修    改"
@@ -109,8 +110,9 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btn_clearinfo"
+            android:id="@+id/btn_cancle"
             android:layout_width="0dp"
+            android:onClick="cancle"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="25dp"

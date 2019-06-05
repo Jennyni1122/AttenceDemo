@@ -72,7 +72,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         //创建考勤记录表
         str = "create table tb_record(" +
-                "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY," +
+                "id varchar(50)," +
                 "attNo varchar(50) ," +
                 "attResult varchar(50)," +
                 "arrData varchar(50)" +

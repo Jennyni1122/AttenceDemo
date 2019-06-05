@@ -44,9 +44,11 @@ public class RecordDAO {
         Cursor cursor = contentResolver.query(ProviderContract.RecordEntry.CONTENT_URI, null, ProviderContract.RecordEntry.COLUMN_ATTNO + "=?", new String[]{attNo}, null);
         List<Tb_record> list = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Tb_record tb_record = new Tb_record(cursor.getColumnName(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTNO)),
-                    cursor.getColumnName(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ARRDATA)),
-                    cursor.getColumnName(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTRESULT))
+            Tb_record tb_record = new Tb_record(
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTNO)),
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ARRDATA)),
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTRESULT))
             );
 
             list.add(tb_record);
@@ -56,18 +58,13 @@ public class RecordDAO {
     }
 
 
-    public void update(Tb_record tb_record, int id) {
+    public void updateById(Tb_record tb_record, String id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ATTNO, tb_record.getAttNo());
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ARRDATA, tb_record.getArrData());
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ATTRESULT, tb_record.getAttResult());
         contentResolver.update(ProviderContract.RecordEntry.CONTENT_URI, contentValues, "id=?", new String[]{String.valueOf(id)});
     }
-
-
-
-
-
 
 
 }

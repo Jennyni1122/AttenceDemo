@@ -98,8 +98,13 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
                     Toast.makeText(this, "修改成功~", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    courseDAO.insert(tb_course);
-                    Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+                    if (!courseDAO.isHasCourseCode(courCode)) {
+                        courseDAO.insert(tb_course);
+                        Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "该课程已存在", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
 //                List<Tb_course> list = courseDAO.queryAll();

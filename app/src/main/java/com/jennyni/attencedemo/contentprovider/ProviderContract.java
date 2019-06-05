@@ -70,6 +70,7 @@ public class ProviderContract {
         public static final String COLUMN_ATTNO = "attNo";
         public static final String COLUMN_ATTRESULT = "attResult";
         public static final String COLUMN_ARRDATA = "arrData";
+        public static final String COLUMN_ID = "id";
     }
 
     public static final class ScoreEntry implements BaseColumns {
@@ -110,6 +111,7 @@ public class ProviderContract {
         public static final String COLUMN_REALTM = "realTm";
         public static final String COLUMN_ABSTM = "absTm";
         public static final String COLUMN_LATTM = "latTm";
+        public static final String COLUMN_SCORE = "score";
     }
 
     /**
