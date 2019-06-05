@@ -10,15 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jennyni.attencedemo.R;
-import com.jennyni.attencedemo.activity.course.AddCourseActivity;
-import com.jennyni.attencedemo.activity.setting.KouFenActivity;
-import com.jennyni.attencedemo.activity.setting.ModifyPswActivity;
-import com.jennyni.attencedemo.activity.setting.SyssetActivity;
-import com.jennyni.attencedemo.activity.student.AddStudentActivity;
-import com.jennyni.attencedemo.activity.student.ImportStudentActivity;
-import com.jennyni.attencedemo.activity.student.StudentInfoActivity;
-import com.jennyni.attencedemo.activity.student.StudentNameActivity;
-import com.jennyni.attencedemo.activity.welcome.FindPswActivity;
 import com.jennyni.attencedemo.adapter.pictureAdapter;
 
 public class AttencemanageActivity extends AppCompatActivity {

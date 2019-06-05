@@ -11,14 +11,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:name=".app.MyApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/icon_school"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_school"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.welcome.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.welcome.LoginActivity">
-        </activity>
+        <activity android:name=".activity.welcome.LoginActivity"></activity>
         <activity android:name=".activity.setting.SyssetActivity" />
         <activity android:name=".activity.student.StudentInfoActivity" />
         <activity android:name=".activity.course.CourseInfoActivity" />
@@ -44,7 +43,6 @@
         <activity android:name=".activity.attence.EmailActivity" />
         <activity android:name=".activity.attence.ExcelActivity" />
         <activity android:name=".activity.student.AddStudentActivity" />
-        <activity android:name=".activity.student.ImportStudentActivity" />
         <activity android:name=".activity.student.StudentNameActivity" />
 
         <provider
@@ -52,7 +50,7 @@
             android:authorities="com.jennyni.attencedemo"
             android:exported="false" />
 
-
+        <activity android:name=".activity.student.QueryStudentActivity"></activity>
     </application>
 
 </manifest>
