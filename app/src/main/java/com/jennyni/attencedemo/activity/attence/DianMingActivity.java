@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.jennyni.attencedemo.R;
 import com.jennyni.attencedemo.adapter.StudentAdaper;
 import com.jennyni.attencedemo.adapter.apater.IAdapter;
+import com.jennyni.attencedemo.contentprovider.ProviderContract;
 import com.jennyni.attencedemo.dao.CourseDAO;
 import com.jennyni.attencedemo.dao.StudentDAO;
 import com.jennyni.attencedemo.db.Tb_course;
@@ -125,8 +126,7 @@ public class DianMingActivity extends AppCompatActivity {
     public void startScanBluetoothMac(View view) {
         adapter.clearList();
         currentCourseStudent = getCurrentCourseStudent(courseCode);
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
         mBluetoothAdapter.enable();
         mBluetoothAdapter.startLeScan(scanCallback);
@@ -138,6 +138,11 @@ public class DianMingActivity extends AppCompatActivity {
                 Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
                 adapter.addAll(currentCourseStudent);
             }
+
         }, 25 * 1000);
+
+
     }
+
+
 }

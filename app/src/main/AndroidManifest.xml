@@ -46,6 +46,7 @@
         <activity android:name=".activity.student.AddStudentActivity" />
         <activity android:name=".activity.student.ImportStudentActivity" />
         <activity android:name=".activity.student.StudentNameActivity" />
+        <activity android:name=".activity.attence.ChangeAttResultActivity" />
 
         <provider
             android:name=".contentprovider.UnKnownProvider"

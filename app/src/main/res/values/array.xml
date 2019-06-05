@@ -9,4 +9,9 @@
         <item>15006|通信原理</item>
         <item>15007|大学英语</item>
     </string-array>
+    <string-array name="att_result">
+        <item>旷课</item>
+        <item>已到</item>
+        <item>迟到</item>
+    </string-array>
 </resources>
