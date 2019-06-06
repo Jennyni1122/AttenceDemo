@@ -170,8 +170,9 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
                     getEditClear();
                 } else {
                     studentDAO.deteleStudentInfo(tb_student.getCourcode());
+                    Toast.makeText(this, "删除成功~", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-
                 break;
 
         }

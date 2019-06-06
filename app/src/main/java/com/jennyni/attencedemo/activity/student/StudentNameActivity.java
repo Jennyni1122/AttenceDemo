@@ -104,7 +104,7 @@ public class StudentNameActivity extends AppCompatActivity implements IAdapter.C
 
     private void initData() {
         //数据库需要添加课程
-        List<Tb_student> tb_students = studentDAO.querByCourse(courseCode);
+        List<Tb_student> tb_students = studentDAO.querByCourseCode(courseCode);
         adapter.addAll(tb_students);
     }
 

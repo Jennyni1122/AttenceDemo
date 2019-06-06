@@ -209,10 +209,30 @@ public class StudentDAO {
         return list;
     }
 
-    public List<Tb_student> querByCourse(String courseCode) {
+    public List<Tb_student> querByCourseCode(String courseCode) {
         List<Tb_student> list = new ArrayList<>();
         Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURSECODE+"=?", new String[]{courseCode}, null);
 
+        while (cursor.moveToNext()) {
+            Tb_student tb_student = new Tb_student(cursor.getString(cursor.getColumnIndex("courcode")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("mac")),
+                    cursor.getString(cursor.getColumnIndex("classNo")),
+                    cursor.getString(cursor.getColumnIndex("major")),
+                    cursor.getString(cursor.getColumnIndex("academy")),
+                    cursor.getString(cursor.getColumnIndex("phone")),
+                    cursor.getString(cursor.getColumnIndex("assemail")),
+                    cursor.getString(cursor.getColumnIndex("courseCode"))
+            );
+            list.add(tb_student);
+        }
+        return list;
+    }
+
+
+    public List<Tb_student> querByCourCode(String courCode) {
+        List<Tb_student> list = new ArrayList<>();
+        Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURCODE+"=?", new String[]{courCode}, null);
         while (cursor.moveToNext()) {
             Tb_student tb_student = new Tb_student(cursor.getString(cursor.getColumnIndex("courcode")),
                     cursor.getString(cursor.getColumnIndex("name")),

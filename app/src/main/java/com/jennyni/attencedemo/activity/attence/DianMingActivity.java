@@ -3,7 +3,6 @@ package com.jennyni.attencedemo.activity.attence;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.ScanCallback;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +21,7 @@ import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
 import com.jennyni.attencedemo.adapter.RecordAdaper;
-import com.jennyni.attencedemo.adapter.StudentAdaper;
 import com.jennyni.attencedemo.adapter.apater.IAdapter;
-import com.jennyni.attencedemo.contentprovider.ProviderContract;
 import com.jennyni.attencedemo.dao.CourseDAO;
 import com.jennyni.attencedemo.dao.RecordDAO;
 import com.jennyni.attencedemo.dao.StasDAO;
@@ -34,12 +31,10 @@ import com.jennyni.attencedemo.db.Tb_record;
 import com.jennyni.attencedemo.db.Tb_stas;
 import com.jennyni.attencedemo.db.Tb_student;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 public class DianMingActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
 
@@ -119,7 +114,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
 
     List<Tb_student> getCurrentCourseStudent(String courseCode) {
         StudentDAO studentDAO = new StudentDAO(getContentResolver());
-        return studentDAO.querByCourse(courseCode);
+        return studentDAO.querByCourseCode(courseCode);
     }
 
 //    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
