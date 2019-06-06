@@ -50,6 +50,8 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
         course = (Tb_course) getIntent().getSerializableExtra(TB_COURSE_KEY);
         if (course != null) {
             et_courcode.setText(course.getCourcode());
+            et_courcode.setEnabled(false);
+            et_courcode.setClickable(false);
             et_courname.setText(course.getCourname());
             et_courtime.setText(course.getCourtime());
             et_courplace.setText(course.getCourplace());
@@ -83,6 +85,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
         btn_saveinfo = (Button) findViewById(R.id.btn_saveinfo);
         btn_clearinfo = (Button) findViewById(R.id.btn_clearinfo);
         btn_saveinfo.setOnClickListener(this);
+        btn_clearinfo.setOnClickListener(this);
     }
 
     @Override
@@ -115,6 +118,8 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
                     getEditClear();
                 } else {
                     courseDAO.deleteByCourCode(course);
+                    Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
                 break;

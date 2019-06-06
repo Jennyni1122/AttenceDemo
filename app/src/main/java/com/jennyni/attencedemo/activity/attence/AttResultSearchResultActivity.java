@@ -66,11 +66,11 @@ public class AttResultSearchResultActivity extends AppCompatActivity implements 
         }
         adapter.addAll(tb_records);
         StudentDAO studentDAO = new StudentDAO(getContentResolver());
-        List<Tb_student> list = studentDAO.querByCourse(courCode);
+        List<Tb_student> list = studentDAO.querByCourse(courseCode);
         for (int i = 0; i < list.size(); i++) {
-            student = list.get(i);
-            if (student.getCourseCode().equals(courseCode)) {
-
+            Tb_student student = list.get(i);
+            if (student.getCourcode().equals(courCode)) {
+                this.student = student;
             }
         }
     }

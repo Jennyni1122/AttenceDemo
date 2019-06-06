@@ -59,7 +59,7 @@ public class StasDAO {
         contentValues.put(ProviderContract.StasEntry.COLUMN_ABSTM, stas.getAbsTm());
         contentValues.put(ProviderContract.StasEntry.COLUMN_LATTM, stas.getLatTm());
         contentValues.put(ProviderContract.StasEntry.COLUMN_SCORE, stas.getScore());
-        contentResolver.update(ProviderContract.StasEntry.CONTENT_URI, contentValues, ProviderContract.StasEntry.COLUMN_ATTNO, new String[]{stas.getAttNo()});
+        contentResolver.update(ProviderContract.StasEntry.CONTENT_URI, contentValues, ProviderContract.StasEntry.COLUMN_ATTNO+"=?", new String[]{stas.getAttNo()});
     }
 
 

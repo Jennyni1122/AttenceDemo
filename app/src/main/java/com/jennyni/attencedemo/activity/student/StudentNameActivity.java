@@ -24,7 +24,7 @@ import com.jennyni.attencedemo.db.Tb_student;
 
 import java.util.List;
 
-public class StudentNameActivity extends AppCompatActivity {
+public class StudentNameActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
     private TextView tv_main_title, tv_back;
     private RelativeLayout rl_title_bar;
     private ListView lv_student;
@@ -92,6 +92,7 @@ public class StudentNameActivity extends AppCompatActivity {
         });
         lv_student = findViewById(R.id.lv_student);
         adapter = new StudentAdaper(this);
+        adapter.setOnChildViewClickListener(this);
         lv_student.setAdapter((ListAdapter) adapter.getAdapter());
     }
 
@@ -105,5 +106,11 @@ public class StudentNameActivity extends AppCompatActivity {
         //数据库需要添加课程
         List<Tb_student> tb_students = studentDAO.querByCourse(courseCode);
         adapter.addAll(tb_students);
+    }
+
+    @Override
+    public void setOnChildViewClickListener(View v, int position) {
+        Tb_student tb_student = adapter.getList().get(position);
+        AddStudentActivity.startActivity(this, tb_student);
     }
 }

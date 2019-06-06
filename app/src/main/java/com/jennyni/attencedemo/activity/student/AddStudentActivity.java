@@ -65,6 +65,8 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
 
         if (tb_student != null) {
             et_stunum.setText(tb_student.getMajor());
+            et_stunum.setClickable(false);
+            et_stunum.setEnabled(false);
             et_stuname.setText(tb_student.getName());
             et_stumac.setText(tb_student.getMac());
             et_stuclass.setText(tb_student.getCourcode());

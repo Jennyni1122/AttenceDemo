@@ -170,12 +170,12 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                         mBluetoothAdapter.cancelDiscovery();
                         Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
                         Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
-//                        for (int i = 0; i < currentCourseStudent.size(); i++) {
-//                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
-//                            uncheckList.add(tb_record);
-//                            recordDAO.insert(tb_record);
-//                            upDateStas(currentCourseStudent.get(i));
-//                        }
+                        for (int i = 0; i < currentCourseStudent.size(); i++) {
+                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
+                            uncheckList.add(tb_record);
+                            recordDAO.insert(tb_record);
+                            upDateStas(currentCourseStudent.get(i));
+                        }
 
                         adapter.addAll(currentCourseStudent);
                     }

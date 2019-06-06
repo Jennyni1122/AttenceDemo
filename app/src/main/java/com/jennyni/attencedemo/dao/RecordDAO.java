@@ -37,6 +37,7 @@ public class RecordDAO {
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ATTNO, tb_record.getAttNo());
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ARRDATA, tb_record.getArrData());
         contentValues.put(ProviderContract.RecordEntry.COLUMN_ATTRESULT, tb_record.getAttResult());
+        contentValues.put(ProviderContract.RecordEntry.COLUMN_ID, tb_record.getId());
         contentResolver.insert(ProviderContract.RecordEntry.CONTENT_URI, contentValues);
     }
 

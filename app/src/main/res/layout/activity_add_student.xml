@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.jennyni.attencedemo.activity.student.AddStudentActivity">
 
-    <include layout="@layout/main_title_bar"/>
+    <include layout="@layout/main_title_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,9 +22,9 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:src="@drawable/icon_school"/>
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_school" />
 
             <RelativeLayout
                 android:id="@+id/pay_theme_rl"
@@ -41,21 +41,20 @@
                     android:textSize="17sp" />
 
                 <!--<EditText-->
-                    <!--android:id="@+id/et_coursecode"-->
-                    <!--android:layout_width="200dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:background="@drawable/enter_kuang"-->
-                    <!--android:padding="5dp"/>-->
+                <!--android:id="@+id/et_coursecode"-->
+                <!--android:layout_width="200dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@drawable/enter_kuang"-->
+                <!--android:padding="5dp"/>-->
 
                 <Spinner
                     android:id="@+id/sp_coursetype"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true">
-                </Spinner>
+                    android:layout_centerVertical="true"></Spinner>
 
             </RelativeLayout>
 
@@ -77,10 +76,10 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="123456"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="2012002060012" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -102,10 +101,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="颠三倒"
                     android:background="@drawable/enter_kuang"
                     android:hint=" "
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="诸葛瞻" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -127,9 +126,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="12345678"
                     android:background="@drawable/enter_kuang"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:text="B8:41:A4:53:75:96" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -149,15 +148,14 @@
                     android:id="@+id/et_stuclass"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="通信1班"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
+                    android:hint="如：15通信1班"
                     android:padding="5dp"
-                    android:hint="如：15通信1班"/>
+                    android:text="计算机网络一班" />
 
             </RelativeLayout>
-
 
 
             <RelativeLayout
@@ -178,10 +176,10 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="心电学院"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="信息与电子工程学院" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -200,12 +198,12 @@
                 <EditText
                     android:id="@+id/et_stuphone"
                     android:layout_width="200dp"
-                    android:text="18520466946"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="18520466946" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -226,28 +224,28 @@
                     android:id="@+id/et_teaemail"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="694495047@qq.com"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="694495047@qq.com" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_saveinfo"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="15dp"
+                    android:layout_weight="1"
                     android:background="@android:color/holo_blue_light"
                     android:text="添   加"
                     android:textColor="@android:color/white"
@@ -257,11 +255,11 @@
                     android:id="@+id/btn_clearinfo"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="15dp"
+                    android:layout_weight="1"
                     android:background="@android:color/holo_blue_light"
                     android:text="清空"
                     android:textColor="@android:color/white"

@@ -9,19 +9,43 @@
     <include layout="@layout/main_title_bar" />
 
 
-    <Spinner
-        android:id="@+id/sp_coursetype"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+    <RelativeLayout
+        android:id="@+id/pay_theme_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-       />
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="选择课程："
+            android:textSize="17sp" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/et_coursecode"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:background="@drawable/enter_kuang"-->
+        <!--android:padding="5dp"/>-->
+
+        <Spinner
+            android:id="@+id/sp_coursetype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv"></Spinner>
+
+    </RelativeLayout>
 
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/lv_student"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </ListView>
