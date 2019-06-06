@@ -71,7 +71,7 @@ public class CourseDAO {
 
 
     public boolean isHasCourseCode(String courseCode) {
-        Cursor cursor = contentResolver.query(ProviderContract.CourseEntry.CONTENT_URI, null, ProviderContract.CourseEntry.COLUMN_COURCODE, new String[]{courseCode}, null);
+        Cursor cursor = contentResolver.query(ProviderContract.CourseEntry.CONTENT_URI, null, ProviderContract.CourseEntry.COLUMN_COURCODE + "=?", new String[]{courseCode}, null);
         return cursor.getCount() != 0;
     }
 

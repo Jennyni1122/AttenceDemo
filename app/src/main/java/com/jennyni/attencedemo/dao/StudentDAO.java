@@ -66,7 +66,7 @@ public class StudentDAO {
         contentValues.put(ProviderContract.StudentEntry.COLUMN_ACADEMY, student.getAcademy());
         contentValues.put(ProviderContract.StudentEntry.COLUMN_PHONE, student.getPhone());
         contentValues.put(ProviderContract.StudentEntry.COLUMN_ASSEMAIL, student.getAssemail());
-        contentValues.put(ProviderContract.StudentEntry.COLUMN_COURSECODE, student.getAssemail());
+        contentValues.put(ProviderContract.StudentEntry.COLUMN_COURSECODE, student.getCourseCode());
         contentResolver.insert(ProviderContract.StudentEntry.CONTENT_URI, contentValues);
 
     }
@@ -211,7 +211,7 @@ public class StudentDAO {
 
     public List<Tb_student> querByCourse(String courseCode) {
         List<Tb_student> list = new ArrayList<>();
-        Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURSECODE, new String[]{courseCode}, null);
+        Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURSECODE+"=?", new String[]{courseCode}, null);
 
         while (cursor.moveToNext()) {
             Tb_student tb_student = new Tb_student(cursor.getString(cursor.getColumnIndex("courcode")),
@@ -236,8 +236,16 @@ public class StudentDAO {
      * @param courCode
      * @return
      */
-    public boolean isHasCourCode(String courCode) {
+    public boolean isHasCourCode(String courCode,String courseCode) {
         Cursor cursor = contentResolver.query(ProviderContract.StudentEntry.CONTENT_URI, null, ProviderContract.StudentEntry.COLUMN_COURCODE + "=?", new String[]{courCode + ""}, null);
-        return cursor.getCount() != 0;
+
+        while (cursor.moveToNext()){
+            String courseCode1 = cursor.getString(cursor.getColumnIndex(ProviderContract.StudentEntry.COLUMN_COURSECODE));
+            if (courseCode.endsWith(courseCode1)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

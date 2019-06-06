@@ -80,7 +80,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
             arr[i] = String.format("%s | %s", tb_course.getCourcode(), tb_course.getCourname());
         }
         getData(list, 0);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
         sp_coursetype.setAdapter(adapter);
         sp_coursetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -170,12 +170,12 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                         mBluetoothAdapter.cancelDiscovery();
                         Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
                         Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
-                        for (int i = 0; i < currentCourseStudent.size(); i++) {
-                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
-                            uncheckList.add(tb_record);
-                            recordDAO.insert(tb_record);
-                            upDateStas(currentCourseStudent.get(i));
-                        }
+//                        for (int i = 0; i < currentCourseStudent.size(); i++) {
+//                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
+//                            uncheckList.add(tb_record);
+//                            recordDAO.insert(tb_record);
+//                            upDateStas(currentCourseStudent.get(i));
+//                        }
 
                         adapter.addAll(currentCourseStudent);
                     }

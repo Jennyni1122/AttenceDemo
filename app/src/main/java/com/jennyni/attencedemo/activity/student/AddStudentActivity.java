@@ -67,12 +67,12 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
             et_stunum.setText(tb_student.getMajor());
             et_stuname.setText(tb_student.getName());
             et_stumac.setText(tb_student.getMac());
-            et_stuclass.setText(tb_student.getClassNo());
+            et_stuclass.setText(tb_student.getCourcode());
             et_stuacademy.setText(tb_student.getAcademy());
             et_stuphone.setText(tb_student.getPhone());
             et_teaemail.setText(tb_student.getAssemail());
         }
-        isEdit = tb_student == null;
+        isEdit = tb_student != null;
 
     }
 
@@ -105,6 +105,7 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
         final List<Tb_course> list = courseDAO.queryAll();
         if (list.size() == 0) {
             Toast.makeText(this, "请先添加课程~", Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
         String[] arr = new String[list.size()];
@@ -112,7 +113,7 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
             Tb_course tb_course = list.get(i);
             arr[i] = String.format("%s | %s", tb_course.getCourcode(), tb_course.getCourname());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
         sp_coursetype.setAdapter(adapter);
         courseCode = list.get(0).getCourcode();
         sp_coursetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,13 +143,13 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
 //                    studentDAO = new StudentDAO(AddStudentActivity.this);
                     if (!isEdit) {
                         //课程code暂时没弄
-                        tb_student = new Tb_student(stuNum, stuName, stuMac, stuClass, stuNum, stuAcademy, stuPhone, teaEmail, courseCode);
+                        tb_student = new Tb_student(stuNum, stuName, stuMac, courseCode, stuClass, stuAcademy, stuPhone, teaEmail, courseCode);
 //                    studentDAO.addStudentInfo(tb_student);
-                        if (!studentDAO.isHasCourCode(courseCode)) {
+                        if (!studentDAO.isHasCourCode(stuNum, courseCode)) {
                             studentDAO.addStudentInfo(tb_student);
                             Toast.makeText(this, "添加成功~", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(this, "已经存在该学号~", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "改课程已经存在该学号~", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {

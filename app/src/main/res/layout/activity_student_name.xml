@@ -16,7 +16,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
-        android:entries="@array/coursetype" />
+       />
 
 
     <ListView

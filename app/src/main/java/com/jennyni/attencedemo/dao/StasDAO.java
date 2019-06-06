@@ -95,7 +95,7 @@ public class StasDAO {
 
     public void insertOrUpdateStas(Tb_stas tb_stas) {
         Cursor cursor = contentResolver.query(ProviderContract.StasEntry.CONTENT_URI,
-                null, ProviderContract.StasEntry.COLUMN_ATTNO, new String[]{tb_stas.getAttNo()}, null);
+                null, ProviderContract.StasEntry.COLUMN_ATTNO+"=?", new String[]{tb_stas.getAttNo()}, null);
         if (cursor.getCount() == 0) {
             insert(tb_stas);
         } else {

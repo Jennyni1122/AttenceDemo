@@ -40,14 +40,14 @@ public class ProviderContract {
         /**
          * "create table tb_course(" +
          * "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,"+
-         * "courcode varchar(20)," +
+         * "coursecode varchar(20)," +
          * "courname varchar(20)," +
          * "courtime varchar(50),"+
          * "courplace varchar(50)," +
          * "teacher varchar(10)" +
          * ")"
          */
-        public static final String COLUMN_COURCODE = "courcode";
+        public static final String COLUMN_COURCODE = "coursecode";
         public static final String COLUMN_COURNAME = "courname";
         public static final String COLUMN_COURTIME = "courtime";
         public static final String COLUMN_COURPLACE = "courplace";

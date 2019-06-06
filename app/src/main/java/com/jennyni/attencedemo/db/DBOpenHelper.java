@@ -30,7 +30,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         //创建课程信息表
         String str = "create table tb_course(" +
                 "id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY," +
-                "courcode varchar(20)," +
+                "coursecode varchar(20)," +
                 "courname varchar(20)," +
                 "courtime varchar(50)," +
                 "courplace varchar(50)," +
@@ -48,7 +48,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 "major varchar(20)," +
                 "academy varchar(20)," +
                 "phone varchar(20)," +
-                "assemail varchar(20)" +
+                "assemail varchar(20)," +
+                "courseCode varchar(20)" +
                 ")";
 
         //创建学生信息表

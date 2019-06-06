@@ -57,7 +57,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
             btn_clearinfo.setText("删除");
             btn_saveinfo.setText("修改");
         }
-        isEdit = course == null;
+        isEdit = course != null;
     }
 
     private void initView() {

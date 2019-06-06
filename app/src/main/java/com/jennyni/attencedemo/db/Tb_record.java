@@ -16,6 +16,12 @@ public class Tb_record implements Serializable {
      * arrData      考勤时间
      */
 
+    /**
+     *
+     * @param courseCode 课程号
+     * @param courCode 学号
+     * @return
+     */
     public static String getAttNo(String courseCode, String courCode) {
         return courseCode + "_" + courCode;
     }

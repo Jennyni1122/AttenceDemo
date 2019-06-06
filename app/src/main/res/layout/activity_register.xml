@@ -23,6 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/user_name_icon"
             android:drawablePadding="10dp"
+            android:text="123456"
             android:gravity="center_vertical"
             android:hint="请输入用户名"
             android:paddingLeft="8dp"
@@ -39,6 +40,7 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/et_psw"
+                android:text="123456"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center_horizontal"
