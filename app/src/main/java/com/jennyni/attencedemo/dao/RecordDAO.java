@@ -48,8 +48,9 @@ public class RecordDAO {
             Tb_record tb_record = new Tb_record(
                     cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTNO)),
-                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ARRDATA)),
-                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTRESULT))
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ATTRESULT)),
+                    cursor.getString(cursor.getColumnIndex(ProviderContract.RecordEntry.COLUMN_ARRDATA))
+
             );
 
             list.add(tb_record);

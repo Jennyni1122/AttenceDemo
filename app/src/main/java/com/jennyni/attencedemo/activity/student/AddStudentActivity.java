@@ -64,15 +64,17 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
         tb_student = (Tb_student) getIntent().getSerializableExtra(TB_STUDENT_KEY);
 
         if (tb_student != null) {
-            et_stunum.setText(tb_student.getMajor());
+            et_stunum.setText(tb_student.getCourcode());
             et_stunum.setClickable(false);
             et_stunum.setEnabled(false);
             et_stuname.setText(tb_student.getName());
             et_stumac.setText(tb_student.getMac());
-            et_stuclass.setText(tb_student.getCourcode());
+            et_stuclass.setText(tb_student.getMajor());
             et_stuacademy.setText(tb_student.getAcademy());
             et_stuphone.setText(tb_student.getPhone());
             et_teaemail.setText(tb_student.getAssemail());
+            tv_main_title.setText("修改学生信息");
+
         }
         isEdit = tb_student != null;
 

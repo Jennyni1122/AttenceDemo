@@ -17,13 +17,12 @@ public class Tb_record implements Serializable {
      */
 
     /**
-     *
      * @param courseCode 课程号
-     * @param courCode 学号
+     * @param courCode   学号
      * @return
      */
     public static String getAttNo(String courseCode, String courCode) {
-        return courseCode + "_" + courCode;
+        return String.format("%s_%s", courseCode, courCode);
     }
 
     private String id;

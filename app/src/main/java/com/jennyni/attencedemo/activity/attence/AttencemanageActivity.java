@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
 import com.jennyni.attencedemo.adapter.pictureAdapter;
@@ -18,16 +19,16 @@ public class AttencemanageActivity extends AppCompatActivity {
     private RelativeLayout rl_title_bar;
 
     GridView gvInfo;            //创建GridView对象
-    String[] titles = new String[]{"点名","考勤查询","短信提醒","发送邮件","信息导出"};//定义字符串数组，存储系统功能
-    int[] images = new int[]{R.drawable.dianming,R.drawable.queryattence,R.drawable.sms,R.drawable.email,R.drawable.excel};
+    String[] titles = new String[]{"点名", "考勤查询", "短信提醒", "发送邮件", "信息导出"};//定义字符串数组，存储系统功能
+    int[] images = new int[]{R.drawable.dianming, R.drawable.queryattence, R.drawable.sms, R.drawable.email, R.drawable.excel};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attence_manage);
 
-        gvInfo = (GridView)findViewById(R.id.gvInfo);                 //获取布局文件的gvInfo组件
-        pictureAdapter adapter = new pictureAdapter(titles,images,this);   //创建pictureAdapter对象
+        gvInfo = (GridView) findViewById(R.id.gvInfo);                 //获取布局文件的gvInfo组件
+        pictureAdapter adapter = new pictureAdapter(titles, images, this);   //创建pictureAdapter对象
         gvInfo.setAdapter(adapter);             //为GridView设置数据源
         gvInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,6 +50,9 @@ public class AttencemanageActivity extends AppCompatActivity {
                     case 3:
                         intent = new Intent(AttencemanageActivity.this, EmailActivity.class);
                         startActivity(intent);
+                        break;
+                    case 4:
+                       ExcelActivity.startActivity(AttencemanageActivity.this);
                         break;
                 }
             }
