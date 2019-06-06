@@ -114,7 +114,7 @@ public class ExcelActivity extends AppCompatActivity {
         for (int i = 0; i < recordList.size(); i++) {
             Tb_record record = recordList.get(i);
             List<String> childList = new ArrayList<>();
-            Tb_student student = adapter.getMap().get(record);
+            Tb_student student = adapter.getMap().get(record.getAttNo());
             childList.add(student == null ? "未知" : student.getName());
             childList.add(student == null ? "未知" : student.getCourcode());
             childList.add(record.getAttResult());
