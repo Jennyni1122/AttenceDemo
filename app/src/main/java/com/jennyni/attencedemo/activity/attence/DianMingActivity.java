@@ -213,6 +213,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                     adapter.addAll(currentCourseStudent);
                 } else {
                     mBluetoothAdapter.cancelDiscovery();
+                    mBluetoothAdapter.startDiscovery();
                     startDiscoverBluetooth();
                     times++;
                 }
