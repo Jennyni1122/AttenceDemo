@@ -2,6 +2,7 @@ package com.jennyni.attencedemo.activity.attence;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,8 @@ public class ExcelActivity extends AppCompatActivity {
     private ListView lv_record;
     private String courseCode;
     private ExcleAdapter adapter;
+    private List<Tb_student> tb_students;
+    private String courseName;
 
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, ExcelActivity.class));
@@ -77,10 +80,12 @@ public class ExcelActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
         sp_coursetype.setAdapter(adapter);
         courseCode = list.get(0).getCourcode();
+        courseName = list.get(0).getCourname();
         sp_coursetype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 courseCode = list.get(position).getCourcode();
+                courseName = list.get(position).getCourname();
             }
 
             @Override
@@ -101,9 +106,23 @@ public class ExcelActivity extends AppCompatActivity {
      * @param view
      */
     public void leadOut(View view) {
-//        ExcelUtils.format();
-//        ExcelUtils.initExcel("");
-//        ExcelUtils.writeObjListToExcel();
+        ExcelUtils.format();
+        String fileName = Environment.getExternalStorageDirectory() + "/" + courseName + courseCode + "考勤情况.xls";
+        ExcelUtils.initExcel(fileName, new String[]{"姓名", "学号", "考勤情况", "时间"});
+        List<List<String>> writeList = new ArrayList<>();
+        List<Tb_record> recordList = adapter.getList();
+        for (int i = 0; i < recordList.size(); i++) {
+            Tb_record record = recordList.get(i);
+            List<String> childList = new ArrayList<>();
+            Tb_student student = adapter.getMap().get(record);
+            childList.add(student == null ? "未知" : student.getName());
+            childList.add(student == null ? "未知" : student.getCourcode());
+            childList.add(record.getAttResult());
+            childList.add(record.getArrData());
+            writeList.add(childList);
+        }
+        ExcelUtils.writeObjListToExcel(writeList, fileName,this);
+
     }
 
     /**
@@ -114,7 +133,7 @@ public class ExcelActivity extends AppCompatActivity {
     public void search(View view) {
         StudentDAO studentDAO = new StudentDAO(getContentResolver());
         RecordDAO recordDAO = new RecordDAO(getContentResolver());
-        List<Tb_student> tb_students = studentDAO.querByCourseCode(courseCode);
+        tb_students = studentDAO.querByCourseCode(courseCode);
         if (tb_students.size() == 0) {
             Toast.makeText(this, "改课程下并无学生~", Toast.LENGTH_SHORT).show();
             return;

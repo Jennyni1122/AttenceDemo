@@ -41,6 +41,7 @@ import java.util.List;
 
 public class DianMingActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
     private TextView tv_main_title, tv_back;
+    private TextView tv_tip;
     private RelativeLayout rl_title_bar;
 
     private ListView lv_student;
@@ -106,6 +107,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
 
     private void initVIew() {
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
+        tv_tip = (TextView) findViewById(R.id.tv_tip);
         tv_main_title.setText("点名");
         tv_back = (TextView) findViewById(R.id.tv_back);
         tv_back.setVisibility(View.VISIBLE);
@@ -134,12 +136,21 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
         return studentDAO.querByCourseCode(courseCode);
     }
 
-//    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
-//        @Override
-//        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-//
-//        }
-//    };
+    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+            String address = device.getAddress();
+            String name = device.getName();
+            Log.e("onReceive: ", (address == null ? "未知mac地址     " : address) + name == null ? "未知" : name);
+            int containsAddressIndex = isContainsAddress(address);
+            if (containsAddressIndex != -1) {
+                macAddress.add(address);
+                recordDAO.insert(getAttTb_Record(currentCourseStudent.get(containsAddressIndex), courseCode, "已到"));
+                upDateStas(currentCourseStudent.get(containsAddressIndex));
+                currentCourseStudent.remove(containsAddressIndex);
+            }
+        }
+    };
 
     public int isContainsAddress(String address) {
         for (Tb_student student : currentCourseStudent) {
@@ -151,7 +162,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
     }
 
     /**
-     * 扫描五次？ 设置成扫描25s.
+     *
      *
      * @param view
      */
@@ -161,43 +172,46 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
             return;
         }
         currentCourseStudent = getCurrentCourseStudent(courseCode);
+        tv_tip.setText("当前课程学生数："+currentCourseStudent.size());
         uncheckList.clear();
         adapter.clearList();
-        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (!mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.enable();
         } else {
             mBluetoothAdapter.startDiscovery();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-//                mBluetoothAdapter.stopLeScan(scanCallback);
-                    if (currentCourseStudent.size() * 1.0f / (macAddress.size() + currentCourseStudent.size()) < 0.9f && times < 6) {
-                        mBluetoothAdapter.cancelDiscovery();
-                        mBluetoothAdapter.startDiscovery();
-                        times++;
-                    } else {
-                        times = 1;
-                        mBluetoothAdapter.cancelDiscovery();
-                        Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
-                        Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
-                        for (int i = 0; i < currentCourseStudent.size(); i++) {
-                            Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
-                            uncheckList.add(tb_record);
-                            recordDAO.insert(tb_record);
-                            upDateStas(currentCourseStudent.get(i));
-                        }
-
-                        adapter.addAll(currentCourseStudent);
-                    }
-                    //完成后的操作
-
-                }
-
-            }, 12 * 1000); //先开启一次
+            startDiscoverBluetooth();
         }
+    }
 
+
+    void startDiscoverBluetooth() {
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (currentCourseStudent.size() * 1.0f / (macAddress.size() + currentCourseStudent.size()) <= 0.1f || times > 5) {
+                    times = 1;
+                    mBluetoothAdapter.cancelDiscovery();
+                    Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
+                    Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
+                    for (int i = 0; i < currentCourseStudent.size(); i++) {
+                        Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
+                        uncheckList.add(tb_record);
+                        recordDAO.insert(tb_record);
+                        upDateStas(currentCourseStudent.get(i));
+                    }
+
+                    adapter.addAll(currentCourseStudent);
+                } else {
+                    mBluetoothAdapter.cancelDiscovery();
+                    startDiscoverBluetooth();
+                    times++;
+                }
+                //完成后的操作
+            }
+
+        }, 12 * 1000); //先开启一次
     }
 
 
@@ -270,12 +284,15 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
             if (intent.getAction() == BluetoothDevice.ACTION_FOUND) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 String address = device.getAddress();
+                String name = device.getName();
+                Log.e("onReceive: ", (address == null ? "未知mac地址     " : address) + name == null ? "未知" : name);
                 int containsAddressIndex = isContainsAddress(address);
                 if (containsAddressIndex != -1) {
                     macAddress.add(address);
                     recordDAO.insert(getAttTb_Record(currentCourseStudent.get(containsAddressIndex), courseCode, "已到"));
                     upDateStas(currentCourseStudent.get(containsAddressIndex));
                     currentCourseStudent.remove(containsAddressIndex);
+                    tv_tip.setText(String.format("已到人数：%d     未检测到人数：%d",macAddress.size(),currentCourseStudent.size()));
                 }
             } else {
                 Log.e("onReceive: ", "接收到其他广播啦");

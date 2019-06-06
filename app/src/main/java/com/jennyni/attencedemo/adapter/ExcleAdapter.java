@@ -21,18 +21,22 @@ import java.util.Map;
 public class ExcleAdapter extends BaseAdapter<Tb_record, ExcleAdapter.ViewHolder> {
 
 
-    private Map<String, String> map = new HashMap<>();
+    private Map<String, Tb_student> map = new HashMap<>();
 
     public ExcleAdapter(Context context) {
         super(context);
     }
 
 
+    public Map<String, Tb_student> getMap() {
+        return map;
+    }
+
     public void setSudents(List<Tb_student> list) {
         if (list.size() == 0) return;
         map.clear();
         for (Tb_student student : list) {
-            map.put(Tb_record.getAttNo(student.getCourseCode(), student.getCourcode()), student.getName());
+            map.put(Tb_record.getAttNo(student.getCourseCode(), student.getCourcode()), student);
         }
     }
 
@@ -68,8 +72,8 @@ public class ExcleAdapter extends BaseAdapter<Tb_record, ExcleAdapter.ViewHolder
         public void initData(Tb_record mode, int position, View contentView) {
             tv_result.setText(mode.getAttResult());
             tv_date.setText(mode.getArrData());
-            String s = map.get(mode.getAttNo());
-            tv_name.setText(s == null ? "未知" : s);
+            Tb_student student = map.get(mode.getAttNo());
+            tv_name.setText(student == null ? "未知" : student.getName());
         }
     }
 }

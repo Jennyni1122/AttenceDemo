@@ -8,65 +8,73 @@
 
     <include layout="@layout/main_title_bar" />
 
-    <RelativeLayout
-        android:id="@+id/pay_theme_rl"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-        <TextView
+
+        <RelativeLayout
+            android:id="@+id/pay_theme_rl"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+           >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="选择课程："
+                android:textSize="17sp" />
+
+            <!--<EditText-->
+            <!--android:id="@+id/et_coursecode"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@drawable/enter_kuang"-->
+            <!--android:padding="5dp"/>-->
+
+            <Spinner
+                android:id="@+id/sp_coursetype"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:entries="@array/coursetype"></Spinner>
+
+        </RelativeLayout>
+
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="选择课程："
-            android:textSize="17sp" />
-
-        <!--<EditText-->
-        <!--android:id="@+id/et_coursecode"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:background="@drawable/enter_kuang"-->
-        <!--android:padding="5dp"/>-->
-
-        <Spinner
-            android:id="@+id/sp_coursetype"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:entries="@array/coursetype"></Spinner>
-
-    </RelativeLayout>
-
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/holo_blue_light"
+            android:onClick="startScanBluetoothMac"
+            android:text="开始点名"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
-
-        <Button
-            android:onClick="startScanBluetoothMac"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@android:color/holo_blue_light"
-            android:text="开始点名"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:padding="13dp"
+        android:id="@+id/tv_tip"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/lv_student"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </ListView>
