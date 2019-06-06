@@ -44,7 +44,7 @@
                     android:id="@+id/et_courcode"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text="15001"
+                    android:hint="如：15001"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
@@ -73,7 +73,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="C语言" />
+                    android:text="" />
 
 
             </RelativeLayout>
@@ -96,7 +96,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="周一上午"
+                    android:text=""
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:hint="如：周二上午"
@@ -121,7 +121,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="逸夫楼303"
+                    android:text=""
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"/>
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="张三"
+                    android:text=""
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"/>
             </RelativeLayout>

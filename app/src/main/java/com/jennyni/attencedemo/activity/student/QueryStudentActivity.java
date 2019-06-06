@@ -3,6 +3,7 @@ package com.jennyni.attencedemo.activity.student;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -16,12 +17,12 @@ import com.jennyni.attencedemo.db.Tb_student;
 
 import java.util.List;
 
-public class QueryStudentActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
+public class QueryStudentActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener,View.OnClickListener {
 
     private TextView tv_main_title, tv_back;
     private RelativeLayout rl_title_bar;
 
-
+    private Button btn_search;
     private EditText et_stunum;
     private ListView lv_student;
     private StudentAdaper adapter;
@@ -66,18 +67,30 @@ public class QueryStudentActivity extends AppCompatActivity implements IAdapter.
         adapter = new StudentAdaper(this);
         lv_student.setAdapter(adapter);
         adapter.setOnChildViewClickListener(this);
+
+        btn_search = (Button)findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(this);
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initData();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        initData();
+//    }
 
     @Override
     public void setOnChildViewClickListener(View v, int position) {
         Tb_student tb_student = adapter.getList().get(position);
         AddStudentActivity.startActivity(this, tb_student);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_search:
+                initData();
+                break;
+        }
     }
 }
