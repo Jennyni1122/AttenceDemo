@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -59,6 +60,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
     private List<Tb_record> uncheckList = new ArrayList<>();
     private RecordDAO recordDAO;
     private StasDAO stasDAO;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,8 +164,6 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
     }
 
     /**
-     *
-     *
      * @param view
      */
     public void startScanBluetoothMac(View view) {
@@ -171,8 +171,9 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
             Toast.makeText(DianMingActivity.this, "蓝牙正在工作~", Toast.LENGTH_SHORT).show();
             return;
         }
+        button = (Button) view;
         currentCourseStudent = getCurrentCourseStudent(courseCode);
-        tv_tip.setText("当前课程学生数："+currentCourseStudent.size());
+        tv_tip.setText("当前课程学生数：" + currentCourseStudent.size());
         uncheckList.clear();
         adapter.clearList();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -180,6 +181,9 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
             mBluetoothAdapter.enable();
         } else {
             mBluetoothAdapter.startDiscovery();
+            button.setText("正在点名...");
+            button.setClickable(false);
+            button.setEnabled(false);
             startDiscoverBluetooth();
         }
     }
@@ -195,6 +199,10 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                     mBluetoothAdapter.cancelDiscovery();
                     Toast.makeText(DianMingActivity.this, "剩下未点名的用户：" + currentCourseStudent.size() + "", Toast.LENGTH_SHORT).show();
                     Log.e("剩下未点名的用户: ", currentCourseStudent.size() + "");
+                    button.setText("开始点名");
+                    button.setClickable(true);
+                    button.setEnabled(true);
+                    tv_tip.setText(String.format("蓝牙点名结束，已到人数：%d ,未检测到人数：%d", macAddress.size(), currentCourseStudent.size()));
                     for (int i = 0; i < currentCourseStudent.size(); i++) {
                         Tb_record tb_record = getAttTb_Record(currentCourseStudent.get(i), courseCode, "旷课");
                         uncheckList.add(tb_record);
@@ -211,7 +219,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                 //完成后的操作
             }
 
-        }, 12 * 1000); //先开启一次
+        }, 5 * 1000); //先开启一次
     }
 
 
@@ -292,7 +300,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
                     recordDAO.insert(getAttTb_Record(currentCourseStudent.get(containsAddressIndex), courseCode, "已到"));
                     upDateStas(currentCourseStudent.get(containsAddressIndex));
                     currentCourseStudent.remove(containsAddressIndex);
-                    tv_tip.setText(String.format("已到人数：%d     未检测到人数：%d",macAddress.size(),currentCourseStudent.size()));
+                    tv_tip.setText(String.format("已到人数：%d     未检测到人数：%d", macAddress.size(), currentCourseStudent.size()));
                 }
             } else {
                 Log.e("onReceive: ", "接收到其他广播啦");
