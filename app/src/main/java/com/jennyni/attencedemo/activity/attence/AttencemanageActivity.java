@@ -45,11 +45,13 @@ public class AttencemanageActivity extends AppCompatActivity {
                         break;
                     case 2:
                         intent = new Intent(AttencemanageActivity.this, SMSActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(AttencemanageActivity.this, "该功能未开通", Toast.LENGTH_SHORT).show();
+                        //startActivity(intent);
                         break;
                     case 3:
                         intent = new Intent(AttencemanageActivity.this, EmailActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(AttencemanageActivity.this, "该功能未开通", Toast.LENGTH_SHORT).show();
+                        //startActivity(intent);
                         break;
                     case 4:
                        ExcelActivity.startActivity(AttencemanageActivity.this);

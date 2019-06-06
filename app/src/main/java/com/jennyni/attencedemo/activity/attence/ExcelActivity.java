@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
@@ -26,6 +28,9 @@ import java.util.List;
 
 public class ExcelActivity extends AppCompatActivity {
 
+
+    private TextView tv_main_title, tv_back;
+    private RelativeLayout rl_title_bar;
     private Spinner sp_coursetype;
     private ListView lv_record;
     private String courseCode;
@@ -43,6 +48,18 @@ public class ExcelActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        tv_main_title = (TextView) findViewById(R.id.tv_main_title);
+        tv_main_title.setText("信息导出");
+        tv_back = (TextView) findViewById(R.id.tv_back);
+        tv_back.setVisibility(View.VISIBLE);
+        rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
+        rl_title_bar.setBackgroundColor(getResources().getColor(R.color.rdTextColorPress));
+        tv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExcelActivity.this.finish();
+            }
+        });
         lv_record = findViewById(R.id.lv_record);
         sp_coursetype = findViewById(R.id.sp_coursetype);
         CourseDAO courseDAO = new CourseDAO(getContentResolver());

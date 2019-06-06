@@ -63,6 +63,7 @@ public class StudentNameActivity extends AppCompatActivity implements IAdapter.C
             }
         });
 
+
         CourseDAO courseDAO = new CourseDAO(getContentResolver());
         final List<Tb_course> list = courseDAO.queryAll();
         if (list.size() == 0) {

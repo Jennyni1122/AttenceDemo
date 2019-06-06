@@ -33,6 +33,7 @@ public class StudentAdaper extends BaseAdapter<Tb_student, StudentAdaper.ViewHol
 
         private TextView tv_code;
         private TextView tv_name;
+        private TextView tv_course;
 
         public ViewHolder(View contentView) {
             super(contentView);
@@ -42,6 +43,7 @@ public class StudentAdaper extends BaseAdapter<Tb_student, StudentAdaper.ViewHol
         public void initView(View contentView) {
             tv_code = contentView.findViewById(R.id.tv_code);
             tv_name = contentView.findViewById(R.id.tv_name);
+            tv_course = contentView.findViewById(R.id.tv_result);
             contentView.setOnClickListener(this);
         }
 
@@ -49,6 +51,7 @@ public class StudentAdaper extends BaseAdapter<Tb_student, StudentAdaper.ViewHol
         public void initData(Tb_student mode, int position, View contentView) {
             tv_code.setText(mode.getCourcode());
             tv_name.setText(mode.getName());
+            tv_course.setText(mode.getClassNo()); //课程名字
         }
 
         @Override

@@ -58,6 +58,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
             et_bookteacher.setText(course.getTeacher());
             btn_clearinfo.setText("删除");
             btn_saveinfo.setText("修改");
+            tv_main_title.setText("修改课程");
         }
         isEdit = course != null;
     }
@@ -94,7 +95,6 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.btn_saveinfo:
                 getEditString();        //获取控件上的字符串
-
                 Tb_course tb_course = new Tb_course(courCode, courName, courTime, courPlace, bookTeacher);
                 if (isEdit) {
                     courseDAO.updateByCourCode(tb_course);
@@ -107,9 +107,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         Toast.makeText(this, "该课程已存在", Toast.LENGTH_SHORT).show();
                     }
-
                 }
-
 //                List<Tb_course> list = courseDAO.queryAll();
 //                Log.e("onClick: ", list.size() + "");
                 break;

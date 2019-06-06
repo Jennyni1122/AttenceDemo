@@ -16,10 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
+import com.jennyni.attencedemo.activity.course.AddCourseActivity;
 import com.jennyni.attencedemo.adapter.RecordAdaper;
 import com.jennyni.attencedemo.adapter.apater.IAdapter;
 import com.jennyni.attencedemo.dao.CourseDAO;
@@ -37,7 +40,8 @@ import java.util.Date;
 import java.util.List;
 
 public class DianMingActivity extends AppCompatActivity implements IAdapter.ChildViewClickListener {
-
+    private TextView tv_main_title, tv_back;
+    private RelativeLayout rl_title_bar;
 
     private ListView lv_student;
 
@@ -101,6 +105,19 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
 
 
     private void initVIew() {
+        tv_main_title = (TextView) findViewById(R.id.tv_main_title);
+        tv_main_title.setText("点名");
+        tv_back = (TextView) findViewById(R.id.tv_back);
+        tv_back.setVisibility(View.VISIBLE);
+        rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
+        rl_title_bar.setBackgroundColor(getResources().getColor(R.color.rdTextColorPress));
+        tv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DianMingActivity.this.finish();
+            }
+        });
+
         lv_student = findViewById(R.id.lv_student);
         sp_coursetype = findViewById(R.id.sp_coursetype);
         adapter = new RecordAdaper(this, uncheckList);
@@ -126,7 +143,7 @@ public class DianMingActivity extends AppCompatActivity implements IAdapter.Chil
 
     public int isContainsAddress(String address) {
         for (Tb_student student : currentCourseStudent) {
-            if (student.getCourcode().equals(address)) {
+            if (student.getMac().equals(address)) {
                 return currentCourseStudent.indexOf(student);
             }
         }

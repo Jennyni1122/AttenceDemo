@@ -29,7 +29,7 @@
             android:layout_toRightOf="@+id/tv_1"
             android:background="@drawable/enter_kuang"
             android:padding="5dp"
-            android:text="2012002060012" />
+            android:text="20151334038" />
 
 
         <Button

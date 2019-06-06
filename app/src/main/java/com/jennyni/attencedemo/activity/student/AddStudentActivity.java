@@ -26,7 +26,7 @@ import com.jennyni.attencedemo.db.Tb_student;
 import java.util.List;
 
 /**
- * 添加学生信息    。。。。。。。。。。。。。。。。。。。。。。 数据库写的有问题
+ * 添加学生信息
  */
 public class AddStudentActivity extends AppCompatActivity implements View.OnClickListener {
 

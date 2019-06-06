@@ -79,7 +79,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="2012002060012" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -104,7 +104,7 @@
                     android:background="@drawable/enter_kuang"
                     android:hint=" "
                     android:padding="5dp"
-                    android:text="诸葛瞻" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -128,7 +128,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="B8:41:A4:53:75:96" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -153,7 +153,7 @@
                     android:background="@drawable/enter_kuang"
                     android:hint="如：15通信1班"
                     android:padding="5dp"
-                    android:text="计算机网络一班" />
+                    android:text="" />
 
             </RelativeLayout>
 
@@ -179,7 +179,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="信息与电子工程学院" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -203,7 +203,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="18520466946" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -228,7 +228,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/enter_kuang"
                     android:padding="5dp"
-                    android:text="694495047@qq.com" />
+                    android:text="" />
             </RelativeLayout>
 
             <LinearLayout

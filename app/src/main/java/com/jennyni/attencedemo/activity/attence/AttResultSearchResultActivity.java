@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jennyni.attencedemo.R;
@@ -28,6 +30,9 @@ public class AttResultSearchResultActivity extends AppCompatActivity implements 
     private static final String COURCODE_KEY = "courCode";
     private static final String COURSECODE_KEY = "courseCode";
 
+    private TextView tv_main_title, tv_back;
+    private RelativeLayout rl_title_bar;
+
     private ListView lv_result;
     private SearchResultAdaper adapter;
     private Tb_student student;
@@ -47,6 +52,19 @@ public class AttResultSearchResultActivity extends AppCompatActivity implements 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        tv_main_title = (TextView) findViewById(R.id.tv_main_title);
+        tv_back = (TextView) findViewById(R.id.tv_back);
+        tv_back.setVisibility(View.VISIBLE);
+        rl_title_bar = (RelativeLayout) findViewById(R.id.title_bar);
+        rl_title_bar.setBackgroundColor(getResources().getColor(R.color.rdTextColorPress));
+        tv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         lv_result = findViewById(R.id.lv_result);
         adapter = new SearchResultAdaper(this);
         lv_result.setAdapter(adapter);
