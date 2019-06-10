@@ -71,10 +71,11 @@ public class ExcelUtils {
     /**
      * 初始化Excel
      *
-     * @param fileName
-     * @param colName
+     * @param fileName 文件名
+     * @param colName 列名
+     * @param sheetName 页码名
      */
-    public static void initExcel(String fileName, String[] colName) {
+    public static void initExcel(String fileName, String[] colName,String sheetName) {
         format();
         WritableWorkbook workbook = null;
         try {
@@ -83,11 +84,13 @@ public class ExcelUtils {
                 file.createNewFile();
             }
             workbook = Workbook.createWorkbook(file);
-            WritableSheet sheet = workbook.createSheet("成绩表", 0);
+            WritableSheet sheet = workbook.createSheet(sheetName, 0);
             //创建标题栏
             sheet.addCell((WritableCell) new Label(0, 0, fileName, arial14format));
-            for (int col = 0; col < colName.length; col++) {
-                sheet.addCell(new Label(col, 0, colName[col], arial10format));
+            if(colName!=null){
+                for (int col = 0; col < colName.length; col++) {
+                    sheet.addCell(new Label(col, 0, colName[col], arial10format));
+                }
             }
             sheet.setRowView(0, 340); //设置行高
 

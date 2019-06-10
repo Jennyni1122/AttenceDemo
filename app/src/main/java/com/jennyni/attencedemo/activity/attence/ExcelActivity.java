@@ -106,22 +106,23 @@ public class ExcelActivity extends AppCompatActivity {
      * @param view
      */
     public void leadOut(View view) {
+
         ExcelUtils.format();
         String fileName = Environment.getExternalStorageDirectory() + "/" + courseName + courseCode + "考勤情况.xls";
-        ExcelUtils.initExcel(fileName, new String[]{"姓名", "学号", "考勤情况", "时间"});
+        ExcelUtils.initExcel(fileName, null, "考勤表");
         List<List<String>> writeList = new ArrayList<>();
         List<Tb_record> recordList = adapter.getList();
         for (int i = 0; i < recordList.size(); i++) {
             Tb_record record = recordList.get(i);
             List<String> childList = new ArrayList<>();
             Tb_student student = adapter.getMap().get(record.getAttNo());
-            childList.add(student == null ? "未知" : student.getName());
-            childList.add(student == null ? "未知" : student.getCourcode());
-            childList.add(record.getAttResult());
+//            childList.add(student == null ? "未知" : student.getName());
+//            childList.add(student == null ? "未知" : student.getCourcode());
+//            childList.add(record.getAttResult());
             childList.add(record.getArrData());
             writeList.add(childList);
         }
-        ExcelUtils.writeObjListToExcel(writeList, fileName,this);
+        ExcelUtils.writeObjListToExcel(writeList, fileName, this);
 
     }
 
